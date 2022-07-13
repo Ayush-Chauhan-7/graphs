@@ -1,21 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define maxnode 7
-
+#define maxnode 201
+ 
 typedef struct Node
 {
     int  id;
     struct Node *next;
 }Node;
-
+ 
 typedef struct List
 {
     Node *head;
 }List;
-
+ 
 List *adjlist[maxnode];
 int visited[maxnode] = {0};
-
+ 
 void addnode(int x, int y)
 {
     Node *temp,*dest;
@@ -29,13 +29,12 @@ void addnode(int x, int y)
     }
     temp->next = dest;
 }
-
+ 
 void dfs(int id)
 {
     if(visited[id]==0)
     {
         Node *start = adjlist[id]->head;
-        printf("%d ",id);
         visited[id] = 1;
         while(start)
         {
@@ -46,11 +45,14 @@ void dfs(int id)
         }
     }
 }
-
+ 
 int main()
 {
     Node *src;
-    for(int i=0;i<maxnode;i++)
+    int n,m;
+    scanf("%d",&n);
+    scanf("%d",&m);
+    for(int i=0;i<n;i++)
     {
         adjlist[i] = (List*)malloc(sizeof(List));
         adjlist[i]->head = NULL;
@@ -59,11 +61,21 @@ int main()
         src->next = NULL;
         adjlist[i]->head = src;
     }
-    addnode(0,1);
-    addnode(1,3);
-    addnode(2,4);
-    addnode(3,5);
-    addnode(5,2);
-    dfs(0);
+    int x,y;
+    while(m--)
+    {
+        scanf("%d",&x);
+        scanf("%d",&y);
+        addnode(x-1,y-1);
+        addnode(y-1,x-1);
+    }
+    int count=0;
+        for(int i=0; i<n; i++) {
+            if(!visited[i]) {
+                count++;
+                dfs(i);
+            }
+        }
+    printf("%d\n",count);
     return 0;
 }
