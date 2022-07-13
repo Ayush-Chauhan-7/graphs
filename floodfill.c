@@ -73,7 +73,7 @@ int main()
     }
     int sr,sc,color;
     scanf("%d %d %d",&sr,&sc,&color);
-    visited[sr][sc] = 0;
+    visited[sr][sc] = 1;
     enque(sr,sc);
     int r,c;
     int *arr;
