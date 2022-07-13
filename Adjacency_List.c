@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define maxnode 201
+#define maxnode 100000
+#define ll long long int
  
 typedef struct Node
 {
@@ -49,9 +50,10 @@ void dfs(int id)
 int main()
 {
     Node *src;
-    int n,m;
+    int n;
+    ll m;
     scanf("%d",&n);
-    scanf("%d",&m);
+    scanf("%lld",&m);
     for(int i=0;i<n;i++)
     {
         adjlist[i] = (List*)malloc(sizeof(List));
@@ -66,8 +68,8 @@ int main()
     {
         scanf("%d",&x);
         scanf("%d",&y);
-        addnode(x-1,y-1);
-        addnode(y-1,x-1);
+        addnode(x,y);
+        addnode(y,x);
     }
     int count=0;
         for(int i=0; i<n; i++) {

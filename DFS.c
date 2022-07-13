@@ -1,13 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
  
-void DFS(int u, int A[][13], int n){
-    static int visited[12] = {0};
+static int visited[200] = {0}; 
  
+void DFS(int u, int A[][201], int n){
     if (visited[u] == 0){
-        printf("%d ",u-1);
         visited[u] = 1;
-        for (int v=1; v<n; v++){
+        for (int v=1; v<=n; v++){
             if (A[u][v] == 1 && visited[v] == 0){
                 DFS(v, A, n);
             }
@@ -17,20 +16,25 @@ void DFS(int u, int A[][13], int n){
  
 int main (){
  
-    int A[13][13] ={{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                   {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                   {0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0},
-                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                   {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                   {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-                   {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0},
-                   {0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                   {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0}};
-    DFS(1, A, 13);
-    printf("\n");
+    int n,m;
+    scanf("%d %d",&n,&m);
+    int A[201][201] ={0};
+    for(int i=0;i<m;i++)
+    {
+        int x,y;
+        scanf("%d %d",&x,&y);
+        A[x+1][y+1] = 1;
+        A[y+1][x+1] = 1;
+    }
+    int count = 0;
+    for(int i=1;i<=n;i++)
+    {
+        if(visited[i]==0)
+        {
+            count++;
+            DFS(i,A,n);
+        }
+    }
+    printf("%d\n",count);
     return 0;
 }
