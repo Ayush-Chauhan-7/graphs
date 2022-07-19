@@ -79,7 +79,7 @@ int main()
         scanf("%d",&x);
         scanf("%d",&y);
         scanf("%d",&z);
-        addnode(x-1,y-1,z);
+        addnode(x,y,z);
     }
     int xx = n-1;
     for(int i=0; i<n; i++) {
