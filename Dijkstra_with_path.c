@@ -94,11 +94,12 @@ int main()
         addnode(graph,x,y,z);
     }
     Node **pq;
-    int dist[maxn];
-    dist[0] = 0;
+    int dist[maxn],prev[maxn];
+    dist[0] = 0, prev[0]=-1;
     for(int i=1;i<n;i++)
     {
         dist[i] = 10000;
+        prev[i] = -1;
     }
     int vis[maxn] = {0};
     pq = (Node**)malloc(m*sizeof(Node*));
@@ -109,7 +110,10 @@ int main()
     {
         t1 = deque(pq);
         index = t1->id;
+        minval = t1->weight;
         vis[index] = 1;
+        if(dist[index]<minval)
+            continue;
         t2 = graph[index];
         while(t2->next)
         {
@@ -119,13 +123,23 @@ int main()
             newdist = dist[index] + t2->weight;
             if(newdist < dist[t2->id])
             {
+                prev[t2->id] = index;
                 dist[t2->id] = newdist;
                 enque(pq,t2);
             }
         }
     }
-    for(int i=0;i<n;i++)
-        printf("%d ",dist[i]);
+    int e;
+    printf("Find the shortest path for: ");
+    scanf("%d",&e);
+    int path[maxn],c=0;
+    for(int i=e; i>=0; i = prev[i])
+    {
+        path[c++] = i;
+    }
+    printf("The shortest path is: ");
+    for(int i=c-1;i>=0;i--)
+        printf("%d ",path[i]);
     printf("\n");
     return 0;
 }
