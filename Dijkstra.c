@@ -109,7 +109,10 @@ int main()
     {
         t1 = deque(pq);
         index = t1->id;
+        minval = t1->weight;
         vis[index] = 1;
+        if(dist[index]<minval)
+            continue;
         t2 = graph[index];
         while(t2->next)
         {
